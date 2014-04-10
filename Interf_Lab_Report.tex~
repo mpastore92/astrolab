@@ -1,0 +1,140 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+
+\begin{document}
+
+\title {Inteferometer Lab}
+\author {Marta Pastore}
+\date {March 7, 2014}
+\maketitle
+
+\begin {abstract}
+
+
+\end {abstract}
+
+\section {Introduction}
+
+In this lab we focus on understanding basic interferometry.  We used two
+antennas to obtain observational data from the Sun, moon and
+Orion. These are all considered continuum sources so our telescopes are
+able to detect them. We wrote a computer script that would allow us to
+position the antennas in the right direction for each
+source. Observations were taken from Horizon to horizon for the moon and
+the sun. Orion was observed for a couple of hours. The method of least
+square fitting was used to obtain information like the size of our
+baseline, the radius of the Sun and moon and the declination of our
+point source, Orion. 
+
+\section {Methods}
+
+For the gathering of the data we used two antennas located on the roof of
+a building. This technique is called interferometry and it is very
+commonly used in Radio Astronomy. We wrote a computed program that
+controlled where the atennas point in order to obtain our
+data. Determining the location of our sources of interest was very
+import in the accuracy of our results. We then analyzed the data using a
+method of least-square fitting. This allowed us to determine the radius
+of Sun and Moon and also the declination of Orion. 
+
+\subsection {Interferometer}
+An interferometer consists of two antennas separated by some distance
+called a baseline. The two antennas collect a signal which is then
+processed through a complicated circuit to give a graph on the
+computer. The graph that results from the interferometer is called a
+fringe pattern and it represents the complex response of the baseline
+along the sky. The fringe pattern looks very close to a sine
+wave. Therefore, in our observation we expect to see a fringe pattern
+that looks a bit like a sine wave for each source. 
+
+The interferometer we used operates at about 11GHz. It has a short
+baseline and the fringe spacing is large than the size of all sources,
+except when we observe the Sun and Moon, so they can be considered as
+point sources. 
+
+Because the Sun is the brightest object in the sky, it is easy to obtain
+a clear fringe pattern. this is why we determine the value of our
+baseline from the Sun observations. With the baseline value, the fringe
+properties represent the declination of the point-source which in our
+case is Orion.  Our baseline is  10m and this means we have a fringe
+spacing of 10' and with a horizon-to-horizon observation we can measure
+the declination more accurately. This is precisely why we are taking
+horizon-to-horizon measurements for the Sun and Moon. From this
+observation of the Sun and Moon we can measure their diameters to a
+fraction of a percent. 
+
+The way our interferometer works is it takes the two signals from each
+telescope and multiplies them together via a mixer. The data we end up
+recording is the time average of the product of the signals over a time
+interval of a few seconds. The multiplication of the two signals is done
+through a cross product because this allows the average value to be zero
+unless there is a source. This ensure us that any detected signal is
+coming from the source only. For a particular source, the fringe
+amplitude has no zero offset and it is directly proportional to the
+source flux. 
+
+
+\subsection {Rotational Matrices}
+
+In order to get our observations we need to know the azimuth and
+altitude of the source so that the telescopes can know where to
+point. The azimuth and altitude of the Sun and Moon can easily be
+obtained at any given time using the PyEphem module. However, The
+azimuth and altitude can also be calculated using a rotational matrix,
+R, and the values for the sources right ascension and declination. The
+way the rotational matrix works is by you dotting the matrix containing
+the values of the right ascension and declination for a source with the
+rotational matrix R to give a resulting matrix containing the values of
+the azimuth and altitude for that source. In our case, the Sun and Moon
+have a changing right ascension and declination therefore we have to
+account for the changes in position with time. For our point source
+Orion there is a set value for the right ascension and declination. 
+
+\subsection {Least-Squares Fitting}
+
+Least-squares fitting is a method for approximating the solution for a
+set of data. In our case we are using this method for the approximation
+of Moon and Sun radius as well as the declination of our point
+source. In order to do this, we start by reading a data file and
+transferring the numbers to a matrix using IDL commands. What follows
+are a series of steps that will allow us to plot our data fitted to the
+approximate solution which in our case is a sine wave. With this plot we
+have the necessary information to determine the approximate radius of
+the Sun and Moon.
+
+\section {Results and Discussion}
+
+We observed the Sun and Moon from horizon-to-horizon and Orion and the
+crab nebula for approximately 4 hours. From this a plot of voltage vs
+time was obtained for each source.
+
+\subsection {Sun Observation Results}
+
+The Sun signal with respect to time is shown in Figure 1. If we zoom in
+on this graph we can see the sine wave that represents our fringe
+pattern. This is shown in Figure 2. The negative values of voltage or
+power come from the fringe pattern. 
+see  
+\begin {figure}[h!]
+\centering
+\includegraphics[scale = 0.5]
+{sungraph1.png}
+\caption{\label{rvd} A plot of the Sun signal from horizon-to-horizon
+  using an interferometer}
+\end {figure}
+
+\begin {figure}[h!]
+\centering
+\includegraphics[scale = 0.5]
+{zoomsun.png}
+\caption{\label{rvd} A zoomed in vesion for the plot of the Sun signal
+  form horizon-to-horizon using an interferometer}
+\end {figure}
+
+\subsection {Moon Observation Results}
+
+\subsection {Orion Observation Results}
+
+\section {Conclusion}
+\section {Acknowledgements}

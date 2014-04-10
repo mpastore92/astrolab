@@ -1,0 +1,88 @@
+#ssh -xy radiolab@quasar
+#go to group_3 stuff
+
+import numpy as np
+import pylab as plt
+
+F = np.load('sun_04-02-2014_153105.npz')
+F.files
+data_sun= F['volts']
+fft_sun = np.fft.fft(data_sun)
+power_sun = np.abs(fft_sun)**2
+x = fft_sun.size
+freq = np.fft.fftfreq(x, 1)
+plt.subplot(121)
+plt.plot(data_sun)
+plt.title('Sun data with time', fontsize = 18)
+plt.xlabel('Time(s)', fontsize = 16)
+plt.ylabel('Voltage(V)', fontsize = 16)
+
+plt.subplot(122)
+plt.plot(freq, psun)
+plt.title('Power Spectrum of Sun', fontsize = 18)
+plt.xlabel('Frequency(Hz)', fontsize = 16)
+plt.ylabel('Power(W)', fontsize = 16)
+plt.show()
+
+F = np.load('moon_04-06-2014_033444.npz')
+F.files
+data_moon= F['volts']
+fft_moon = np.fft.fft(data_moon)
+power_moon = np.abs(fft_moon)**2
+x = fft_moon.size
+freq = np.fft.fftfreq(x, 1)
+
+plt.plot(data_moon)
+plt.title('Moon data with time', fontsize = 18)
+plt.xlabel('Time(s)', fontsize = 16)
+plt.ylabel('Voltage(V)', fontsize = 16)data_moon= F['volts']
+
+plt.subplot(122)
+plt.plot(freq, power_moon)
+plt.title('Power Spectrum of Moon', fontsize = 18)
+plt.xlabel('Frequency(Hz)', fontsize = 16)
+plt.ylabel('Power(W)', fontsize = 16)
+plt.show()
+
+F = np.load('3C144_03-28-2014_001926.npz')
+F.files
+data_crab= F['volts']
+plt.plot(data_crab)
+plt.title('Crab Nebula data with time', fontsize = 18)
+plt.xlabel('Time(s)', fontsize = 16)
+plt.ylabel('Voltage(V)', fontsize = 16)
+plt.show()
+
+F = np.load('moon_04-06-2014_033444.npz')
+F.files
+data_orion= F['volts']
+plt.plot(data_orion)
+plt.title('Orion data with time', fontsize = 18)
+plt.xlabel('Time(s)', fontsize = 16)
+plt.ylabel('Voltage(V)', fontsize = 16)
+
+
+
+ 
+y = F['volts']
+ha = lst_crab - ra_crab
+#z = np.arange(7,12.1)
+for d_B in range(7, 12):
+            x = np.zeros([2, 14378])
+            x[0] = math.cos(2*math.pi*d_B/.025* math.cos(22)*math.sin(5))
+            x[1] = math.sin(2*math.pi*d_B/0.025* math.cos(22)*math.sin(5))
+            xx = np.dot(x, np.transpose(x))
+            xxi = np.linalg.inv(xx)
+            xy = np.dot(x, np.transpose(y))
+            coeffs = np.dot(xy, xxi)
+            ybar = np.dot(coeffs, x)
+            yerr = y - ybar
+            dB_guess = np.append(10, d_B)
+            s_sq = np.sum(yerr**2)/(14378-2)
+end
+
+plot(dB_guess,s_sq)
+
+
+
+
