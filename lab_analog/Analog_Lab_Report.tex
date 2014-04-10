@@ -1,0 +1,641 @@
+\documentclass[12pt]{article}
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+
+
+
+\begin{document}
+
+\title {Design and Construction of an FM Radio Receiver}
+\author {Marta Pastore}
+\date {February 10, 2014}
+\maketitle 
+
+\begin {abstract}
+The goal of this lab is to understand the basic circuit components to
+build a foundation for designing an FM radio receiver. To reach this
+goal, we began by designing an FM demodulation circuit which was
+connected to a radio signal and the output was heard through a
+speaker. The design of the FM demodulation circuit included four main
+components: a bandpass filter, a bias circuit, a diode/detector, and a
+low-pass filter. To improve the performance of our radio receiver, we
+designed an amplifier circuit that included five main components, a
+high-pass filter, a biasing circuit, a low pass filter, a transistor,
+and load resistor. In addition to the amplifier, an emitter follower
+circuit, another kind of amplifier, was designed to further improve the
+performance of our FM receiver. The FM demodulation circuit was then
+connected to both amplifiers and to a radio station. This resulted in a
+much improved output signal through the speaker.
+\end {abstract}
+
+\section {Introduction}
+In this lab we explored the concepts of filters by understanding the
+design and behavior of low-pass filters, high-pass filters, and bandpass
+filters. Filters are designed around a desired cutoff frequency, which
+determines the values of the components of the filter. A low-pass filter
+accepts low frequencies and rejects frequencies higher than the cutoff
+frequency. A high-pass filter accepts high frequencies and rejects
+frequencies lower than the cutoff frequency. A bandpass filter lets in a
+set range of frequencies.
+ 
+In addition, the workings of a transistor were explored. We used three
+terminal transistors to design more complicated circuits including an
+emitter follower circuit and an amplifier circuit. Since both of these
+circuits are designed to amplify a signal, the concept of gain was also
+discussed. The gain is simply multiplication factor that relates the
+magnitude of the output signal to the input signal. The gain can be
+expressed as the ratio of output voltage to input voltage (voltage gain)
+or output power to input power (power gain).
+
+Lastly, biasing circuits were also used in our more complicated circuit
+designs. In our case, a resistive voltage divider was used for
+biasing. A biasing circuit simply sets a specific voltage output. We
+needed biasing in order for the transistor to behave properly in the
+design of the follower and the amplifier.
+
+\section {Methods}
+
+\subsection {Impedance}
+
+Before the main components of a circuit can be explored, the concept of
+impedance,Z, needs to be well understood. Electrical impedance is
+defined as the amount of opposition a circuit applies to any incoming
+current when a voltage is applied. Impedance is therefore analogous to
+friction in more physical terms. All of the different components in a
+circuit have an impedance and therefore contribute to the overall
+opposition of current in the circuit.
+
+\subsection {Resistor}
+
+A resistor is a two-terminal electrical component through which current
+can flow. The impedance of a resistor, Zr, is equal to its resistance
+R. Ohm's Law, 
+\begin {equation}
+V = IR
+\end {equation}
+is a very useful equation in understanding how a
+resistor behaves. Furthermore, Resistors can be connected in series to
+give a total resistance of
+\begin {equation}
+Re = R1 + R2 +...+ Rn
+\end {equation} 
+In this configuration
+the voltage across the resistors is the same but the current is
+different. Similarly resistor can be connected in parallel to give a
+total resistance of 1/Re = 1/R1 + 1/R2 +...+ 1/Rn. In this configuration
+the current through the resistors is the same but the voltage is
+different.
+
+Resistors can be used to build a voltage divider, which is a circuit
+that gives an output voltage that is a fraction of the input
+voltage. Two resistors connected in series can be considered a voltage
+divider. To test this we took two 1500$\Omega$ resistors and connected them in
+series and applied a 5V DC voltage source(Figure 1).
+
+\begin {figure}[h!]
+\centering 
+\includegraphics[scale = 1.0]{figure1.png}
+\caption{\label{rvd} A resistive voltage divider of two 1500$\Omega$ 
+resistors connectect two a +5V source. }
+\end {figure}
+
+A multimeter was used to read the value of the output current and
+voltage. The circuit was then connected to a 1MHz sine wave and the
+input and output was observed using an oscilloscope.Furthermore, a
+second voltage divider was the added by connecting a resistor to the
+output of the first voltage divider. The value for this resistor was
+calculated to be 18,000$\Omega$ (Figure 2).
+
+\begin {figure}[h!]
+\centering
+\includegraphics[scale = 1.0]{figure2.png}
+\caption{\label{rvd} A second voltage divider added to the output of
+another voltage divider. }
+\end {figure} 
+
+\subsection {Capacitor}
+A capacitor is an electrical circuit component used to store charge. The
+equation I=C(dV/dt) expresses the behavior of a capacitor. The impedance
+of a capacitor,Zc, is equal to 1/(jwC) where w is the angular
+frequency. Capacitors arranged in series have an equivalent capacitance
+of 1/Ceq = 1/C1 + 1/C2 +...+1/C3. Capacitors arranged in parallel have
+an equivalent capacitance of Ceq = C1 + C2 +...+1/C3. 
+
+A voltage divider can be built by connecting two capacitors in
+series. We built a voltage divider with two capacitors each with value
+1$\mu$F and connected to a 1MHz sine signal (Figure 3).
+
+\begin {figure}[h!]
+\centering
+\includegraphics[scale=1.0]{figure3.png}
+\caption{\label{rvd} A capacitive voltage divider of two 1$\mu$F
+capacitors. }
+\end {figure}
+
+The input and output signal was observed using an oscilloscope and the
+voltage was measured at the output.Furthermore, we expanded this circuit
+by adding a resistor to the output. In this case we used a 1200$\Omega$
+resistor will be used (Figure 4).
+
+\begin {figure}[h!]
+\centering
+\includegraphics[scale = 1.0]{figure4.png}
+\caption{\label{rvd} A capacitive voltage divider of two 1$\mu$F                                
+capacitors connected to a 1200$\Omega$ load resistor. }
+\end {figure}
+
+The input and output signal was observed using an oscilloscope. 
+
+\subsection {RC Filters}
+Resistors and capacitors can be arranged in series and result in a
+filter circuit that allows certain frequencies to enter and rejects
+others. There are two types of RC filters, low-pass filter and high pass
+filter. 
+ 
+A low pass filter is a filter that passes low-frequency signals and
+rejects signals with frequencies higher than the cutoff frequency. The
+cutoff frequency is the frequency at which the energy of the filter
+begins to reduce. The cutoff frequency can be expressed as $f = 1/(2\pi
+CR)$. We designed a low-pass filter with a cutoff frequency of
+106kHz. We chose a 1600$\Omega$ resistor and the value of the capacitor was
+calculated to be 10nF (Figure 5). The response of the filter to
+different frequencies was observed using an oscilloscope.
+
+\begin {figure}[!h]
+\centering
+\includegraphics[scale = 1.0]{figure5.png}
+\caption{\label{rvd} The designed low-pass filter circuit diagram. }
+\end {figure}
+ 
+A high-pass filter is a filter that passes high frequency signals and
+rejects signals with frequencies lower than the cutoff frequency. We
+designed a high-pass filter using the same values for R and C as in the
+low-pass filter above (Figure 6).We observed the response to different
+frequencies using an oscilloscope.
+
+\begin {figure}[!h]
+\centering
+\includegraphics[scale = 1.0]{figure7.png}
+\caption{\label{rvd} The designed high-pass filter circuit diagram. }
+\end {figure}
+
+\subsection {LC Circuit}
+An LC circuit involves two electrical components, an inductor and a
+capacitor. An inductor is a coil that resists the current passing
+through it. When current flows through an inductor, energy is stored
+temporarily in a magnetic field in the coil. When the current through
+the inductor changes, the time-varying magnetic field induces a voltage
+in the inductor. An inductor is characterized by its inductance, L,
+which is expressed in units of Henries(H).  The behavior of an inductor
+is expressed as 
+
+\begin{equation}
+V = L(dI/dt)
+\end{equation} 
+
+and its impedance,Zl, as jwL.
+
+We put together an inductor and a capacitor in series and parallel
+(Figure 7 and Figure 8).
+
+\begin {figure}[!h]
+\centering
+\includegraphics[scale = 1.0]{figure6.png}
+\caption{\label{rvd} A series LC circuit. }
+\end {figure}
+
+\begin {figure}[!h]
+\centering
+\includegraphics[scale = 1.0]{figure8.png}
+\caption{\label{rvd} A parallel LC circuit. }
+\end {figure}
+
+For the values L = $1\mu H$ and C = $1\mu F$ used, the natural frequency, 
+$w_o = 1/[LC)^(1/2)]$, is calculated to be 1MHz. The impedance as a
+function of angular frequency for the series case then is Z(w) =
+$(10^-6)((f^2-10^12)/f)$. The impedance as function of angular frequency
+for the parallel case is $Z(w) = (-10^6)(w/(w^2-10^{12}))$. A plot for
+impedance vs frequency for both cases was created to further understand
+impedance behavior. 
+
+We designed an RLC bandpass filter with a bandwidth of 200,000Hz (Figure
+9). Using values of  L = $1\mu H$ and C = $1\mu F$, the calculated resistance is
+1.25$\Omega$. A 2.7$\Omega$ resistor was used instead due to lack of
+equipment. 
+
+\begin {figure}[!h]
+\centering
+\includegraphics[scale = 1.0]{figure9.png}
+\caption{\label{rvd} The designed RLC bandpass filter. }
+\end {figure}
+
+\subsection {Diode}
+A diode is a two-terminal circuit components with a low resistance to
+current flow in one direction and high resistance in the other. This
+characteristic gives the diode the ability to block current in one
+direction and allow current to flow in the other. This behavior is
+called rectification and is used to convert alternating current to
+direct current, which is useful in the extraction of modulation from
+radio signals in radio receivers.
+
+To examine a diode more closely, we measured the voltage drop across a
+diode using a resistor to limit the current flow (Figure 10).
+
+\begin {figure}[!h]
+\centering
+\includegraphics[scale = 1.0]{figure10.png}
+\caption{\label{rvd} A diode connected to a resistor.}
+\end {figure}
+
+The resistor R was varied and  for each resistor value, the voltage was
+varied between 1V and 5V. Next, we used a large 1V oscillating signal
+into the diode and viewed the original and rectified signal on an
+oscilloscope. Furthermore, we connected to the diode a low pass filter
+with time constant of order the input frequency, which in out case was
+100kHz. The time constant is therefore 100ms. The values for R and C
+were therefore chosen to be 10$\Omega$ and 1$\mu$F, respectively (Figure
+10). The output of this circuit was then observed in an oscilloscope.
+
+\begin {figure}[!h]
+\centering
+\includegraphics[scale = 1.0]{figure11.png}
+\caption{\label{rvd} A diode connected to a low-pass filter.}
+\end {figure}
+
+\subsection {FM Demodulation}
+Demodulation is the process of extracting the original signal from a
+modulated incoming signal. A demodulator is an electronic circuit used
+to recover the information from the modulated signal. An FM demodulator
+takes in a modulated signal in the FM frequency range, which is 88 to
+108MHz, and smooths it out into a clean FM signal. 
+
+We built a demodulation circuit using all the different circuits
+previously designed. The demodulation circuit was then connected to an
+antenna/radio from the input and connected to a speaker on the
+output. The station used is 1.045MHz,  which is a fake FM station used
+because of the lack of radio reception in the lab. The circuit diagram
+for this FM receiver is shown in Figure 12.
+
+\begin {figure}[!h]
+\centering
+\includegraphics[scale = 0.5]{figure12.jpg}
+\caption{\label{rvd} FM demodulation circuit diagram with labeled
+unit components.}
+\end {figure}
+
+In Figure 12 blocks of components have been highlighted to show the different
+parts of the demodulator. Here, the bandpass filter design earlier was
+used, giving values of L = 1$\mu$H, C = 1$\mu$F and R =
+2.7$\Omega$. The capacitor C1 was given a value of 1$\mu$F. The
+resistors, R1 and R2, were both 10$\Omega$ resistors. The Vcc voltage
+connected to R1 was set to 5V. The low pass filter was designed to have
+a cutoff frequency of 100kHz, resulting in values of 16$\Omega$ for R3
+and 0.1$\mu$F for C2. Lastly, a 0.1$\mu$F capacitor was used for C3.
+
+\subsection {Transmission Line}
+A transmission line delivers power from a source to a load. It consists
+of two conductors and between them there is capacitance. Because any
+wire has inductance, a transmission line acts like a series of two
+inductors connected in parallel by a capacitor circuits. The
+characteristic impedance of a transmission line is as follows
+$Z=(L/C)^(1/2)$.
+
+For our experiment we applied a 1MHz square wave function through a 15
+meter transmission line. The output was observed using an
+oscilloscope. The width of the observed signal was measured using the
+divisions on the oscilloscope. A 10Ω resistor was attached to the end of
+the transmission and the output was once again observed. Different
+resistor values were then tested until for some value the output signal
+was a square wave.
+
+\subsection {Transistor}
+A transistor is a device used to amplify electronic signals and
+electrical power. It is composed of semiconductor material with at least
+three terminals for connection to an external circuit. For this a lab, a
+three terminal transistor was used. The three terminals are refereed as
+the collector, the base and the emitter.
+ 
+
+Transistors can be used in building an emitter follower. An emitter
+follower can serve as a buffer for a voltage source. The voltage gain of
+an emitter follower is a little less than one since the emitter voltage
+is constrained at 0.6V below the base. Its function is current and power
+gain and impedance matching. Its input impedance is much higher than its
+output impedance. The low output impedance of the emitter follower
+matches a low impedance load and buffers the signal source from that low
+impedance. Keeping these concepts in mind, we selected resistor and
+capacitor values to build the emitter follower circuit shown in Figure
+13.
+
+\begin {figure}[!h]
+\centering
+\includegraphics[scale = 1]{figure13.png}
+\caption{\label{rvd} The designed emitter follower circuit diagram.}
+\end {figure}
+
+We connected this circuit to a 10kHz sine wave with amplitude of 1V. The
+input and output voltages were observed using an oscilloscope. The
+frequency was then increased in order to determine the maximum sine
+amplitude for which this circuit operates properly. The bias voltage at
+the base was measure and the emitter resister value was decreased until
+a change in the bias voltage was observed.
+ 
+
+Transistors can also be used in building an amplifier. An amplifier is
+an electronic device used to increase the power of a signal.  It does
+this by taking energy from a power supply and controlling the output to
+match the input signal shape but with a larger amplitude. Amplifiers
+exhibit the property of gain, or multiplication factor that related the
+magnitude of the output signal to the input signal. The gain may be
+specified as the ratio of output voltage to input voltage, which is
+called voltage gain.
+
+For this lab, we designed the an amplifier represented by the circuit
+diagram in Figure 14.
+
+\begin {figure}[!h]
+\centering
+\includegraphics[scale = 1]{figure14.png}
+\caption{\label{rvd} the designed amplifier circuit diagram.}
+\end {figure}
+
+The values of the resistors and capacitors were chosen with a gain of 5
+in mind. The gain, g, is equal to Rc/Re. We chose Rc to equal 1000$\Omega$, so
+Re is equal to 200$\Omega$. We chose R1 to equal 120$\Omega$ and R2 is defined as
+(R1)/4, so R2 is equal to 30$\Omega$. A 33$\Omega$ resistor was used for R2 instead
+due to lack of 30$\Omega$ resistors in the lab. For C1 and C2, 1$\mu$F capacitors
+were used. The emitter capacitor, Ce, was omitted for this part. The Vcc
+voltage was set to 5V. The circuit was then connected to a 10kHz sine
+wave with 100mV amplitude. The relationship between the input and output
+voltages was observed using an oscilloscope in order to determine
+whether a gain of 5 was reached. The frequency was then increased in
+order to determine the maximum amplitude at which this circuit correctly
+operates.
+ 
+
+Next, we added the emitter capacitor into our circuit with a goal of
+reaching a gain of 10 at 10kHz. Now Re is set to 100$\Omega$ and the Ce can be
+calculated using the cutoff frequency equation for an RC filter. The
+calculated value for Ce is 0.2$\mu$F. We then connected the circuit to a
+10kHz sine wave with 100mV amplitude. The relationship between the input
+and output voltages was observed using an oscilloscope in order to
+determine whether a gain of 10 was reached. The gain at 20kHz was then
+measured.
+ 
+
+Finally, we connected the FM demodulator designed earlier to the
+amplifier designed and connected this to the emitter follower previously
+designed. The input of the FM demodulator was connected to a 1.05MHz
+radio station and the output of the emitter follower was connected to a
+speaker.
+
+\subsection {Noise Figure of a receiver}
+n electronics, noise is a random fluctuation in an electrical
+signal. Noise can be produced by different effects. An example of a type
+of noise is the Johnson-Nyquist Noise, which is noise generated by the
+thermal agitation of the charge carriers inside an electrical conductor
+at equilibrium. For a resistor the voltage behaves as follows:
+$V^2=4kTBR$, where k is the Boltzmann constant, T is the temperature, B is
+the bandwidth, and R is resistance. Therefore in order to reduce the
+noise in a resistor we can lower the temperature of the resistor or
+reduce the bandwidth through filtering. 
+
+For this experiment we want to measure the noise through a 50$\Omega$. In order
+to do this, the noise needs to be amplified. Therefore, we connected 3
+amplifiers, two AC1068C amplifiers with a gain of 24.5dB and one AP1309C
+with a gain of 12.5dB. Two 60MHz low pass filters to insure signal is in
+the correct bandwidth. The configuration looks as follows:
+2W Power supply--Filter--Filter--AP1039C--AC1068C--AC1068C--50$\Omega$
+resistor--15V voltage supply.
+
+\section {Results and Discussion}
+\subsection {Resistive voltage divider circuit}
+For the resistive voltage divider the circuit the measured output
+voltage is 2.40V and the measured current is 0.81$\mu$A. Ideally the output
+voltage should be 2.5V and the current 0.83$\mu$A. The values are different
+sure to thermal losses and other factors. When the circuit was connected
+to the 1MHz sine wave, the input and output curves in the oscilloscope
+were close to identical; therefore Vin/Vout is close to unity. This
+means that a resistive voltage divider does not distort the incoming
+signal.
+ 
+
+For the circuit with the second voltage divider, the two initial
+resistors act as a single 3000$\Omega$ resistor from the perspective of the
+second voltage divider. This combined resistance is known as the
+Thevenin equivalent resistance and its value is helpful in simplifying
+the circuit. Furthermore, the third resistor acts as a load on the
+voltage-divider circuit. A load draws power from the circuit changing
+the output voltage. If R3>>R2, then the ratio Vout/Vin is practically
+unchanged because the current chooses to travel the path with least
+resistance.
+ 
+
+When choosing what values of resistors to use in a voltage divider, the
+amount of power supply that will be added needs to be taken into
+consideration. For really high power supplies, a high impedance is
+required in order for the resistor to handle the high input voltage. For
+low power supplies, a low impedance is more appropriate in order for the
+current to easily travel through the resistor. 
+
+\subsection {Capacitive voltage divider circuit}
+For the capacitive voltage divider circuit both input and output curves
+are about the same in the oscilloscope. There is just a slight decrease
+in amplitude in the output signal. The output voltage is measured to be
+2.02V. Overall, a capacitive voltage divider does not distort the
+incoming signal.
+ 
+
+When the 1200$\Omega$ was added to the circuit, there is a bit more of a
+difference between Vin and Vout; therefore the  ratio Vin/Vout is not
+one at every point but still very close.
+
+\subsection {RC filter response}
+For the low pass filter designed the data obtained is shown in Table 1.
+
+\begin {table}[!h]
+\center
+\begin {tabular}{|c|c|}
+\hline
+Frequency     &     Voltage  \\
+\hline
+20kHz         &     1.6V     \\
+\hline
+50kHz         &     1.6V     \\
+\hline
+100kHz        &     1.6V     \\
+\hline
+500kHz        &     450mV    \\
+\end {tabular}
+\caption { Data for the response of the designed low-pass filter.}
+\label {Table.1}
+\end {table}
+
+The plot for the response of the low pass filter is shown in Figure 15.
+\begin {figure}[!h]
+\centering
+\includegraphics[scale = 0.5]{figure15.jpg}
+\caption{\label{rvd} A plot for the response of the designed low-pass filter.}
+\end {figure}
+
+From this plot it can be seen that the voltage begins to gradually
+decrease around the cutoff frequency 100kHz.
+
+For the high-pass filter designed, the data obtained is shown in Table
+2.
+\begin {table}[!h]
+\center
+\begin {tabular}{|c|c|}
+\hline
+Frequency     &     Voltage  \\
+\hline
+20kHz         &     ~0V      \\
+\hline
+100kHz        &     2V     \\
+\hline
+500kHz        &     1.8V    \\
+\end {tabular}
+\caption { Data for the response of the designed high-pass filter.}
+\label {Table.2}
+\end {table}
+The plot for the response of the high-pass filter us shown in Figure 16.
+\begin {figure}[!h]
+\centering
+\includegraphics[scale = 0.5]{figure16.jpg}
+\caption{\label{rvd} A plot for the response of the designed high-pass filter.}
+\end {figure}
+
+From this plot it can be seen that the voltage gradually increases up to
+the cutoff frequency of 100kHz and the stays there for higher
+frequencies. 
+
+To make the lines of the filter steeper, better capacitors and resistors
+can be used to improve performance of the filter.
+
+\subsection {LC circuit and bandpass filter response}
+For the series LC circuit designed earlier the plot of impedance vs
+frequency is shown in Figure 17.
+
+\begin {figure}[!h]
+\centering
+\includegraphics[scale = 0.5]{figure17.jpg}
+\caption{\label{rvd} A plot of impedance vs frequency for the designed
+series LC circuit.}
+\end {figure}
+
+From this plot we can see that as the applied frequency approaches the
+natural frequency of the circuit, 100kHz, the impedance approached
+zero. This means that at frequencies very high from the natural
+frequency, the series LC circuit behaves a a regular a wire.
+
+For the parallel LC circuit designed earlier the plot of impedance vs
+frequency is shown in Figure 18.
+
+\begin {figure}[!h]
+\centering
+\includegraphics[scale = 0.5]{figure18.jpg}
+\caption{\label{rvd} A plot of impedance vs frequency for the designed
+parallel LC circuit.}
+\end {figure}
+
+\subsection {Diode with resistor and low-pass filter}
+The data for the voltage across a diode for various resistors and
+voltages is the following:
+
+When the diode was connected to the low pass filter, across the resistor
+the signal was noisy and across the diode the signal was
+smooth. Therefore the diode took in a high frequency signal and provided
+an output that is an envelope of the original signal, giving a more
+spread out curve on the oscilloscope. 
+
+\subsection {Speed of signal and characteristic impedance of a
+transmission line}
+When we applied a 1MHz square wave to out 15m transmission line and
+connected the output to an oscilloscope, the observed graph is shown in
+Figure 19.
+
+\begin {figure}[!h]
+\centering
+\includegraphics[scale = 0.5]{figure19.jpg}
+\caption{\label{rvd} A replication of the output in an oscilliscope for
+a 1MHz square wave applied to a 15m transmission line.}
+\end {figure}
+
+Here, the reflected wave causes a step on the square wave. The width of
+this plot was measured to be 750ns. This values is the amount of time it
+took the signal to travel to en of the line and back. Therefore, the
+speed of the signal is $4x10^(7)m/s$. When we added the 10$\Omega$
+resistor to terminate the far end of the cable and kept the same input
+signal, the observed graph is shown in Figure 20.
+
+\begin {figure}[!h]
+\centering
+\includegraphics[scale = 0.5]{figure20.jpg}
+\caption{\label{rvd} A replication of the output in an oscilliscope for
+a 1MHz square wave applied to a 15m transmission line terminated with a
+10$\Omega$ resistor.}
+\end {figure}
+
+After trying various resistor values in order to properly terminate the
+signal and get a square wave on the oscilloscope, a 56$\Omega$ resistor was
+found to properly terminate the signal. The signal is properly
+terminated when the resistor is equal to the characteristic impedance of
+the cable; therefore the 15m transmission used has a characteristic
+impedance of 56$\Omega$. 
+
+\subsection {Emitter follower input and output observations}
+
+For the emitter follower design, the measured bias voltage was 0.6V. The
+output signal observed in the oscilloscope was smoother than the input
+signal. The maximum frequency at which this circuit operates was found
+to be 600kHz. At this frequency, the output signal is not longer
+smooth and the signal is almost lost. 
+
+When the bias voltage at the base was measured with a 270k$\Omega$
+resistor as the emitter resistor, the bias voltage at the base was
+measured to be 7.78V. When we changed the emitter resistor value to
+150k$\Omega$ resistor, the voltage dropped to 7.6V. Therefore, this is
+the minimum frequency at which the voltage at the base will stay
+constant.
+
+\subsection {Amplifier input, output and gain observations}
+When the designed amplifier circuit was connected to a 10kHz sine wave
+with 100mV amplitude,the voltage at the collector was measure to be
+3.87V. When the output signal was seen in the oscilloscope, there was an
+amplification of the signal with a gain of about 4. The gain of 5 was not
+reached due to the values chosen for the capacitors and resistors in the
+circuit. The maximum frequency at which this circuit properly operates
+was found to be 500kHz. 
+
+When we considered a gain of ten and added the emitter capacitor into
+the circuit, the output signal was still amplified in the
+oscilloscope. A gain of about 7 was reached. The gain of 10 was not
+reached due to the values used for the capacitors and resistors. Further
+calculation of these values will result in a gain closer to 10. 
+
+Finally when the FM demodulator, the amplifier and the follower designed
+were combined and connected to a 1.04MHz radio and signal and a speaker,
+we were about to listen to the radio station, which means out circuits
+worked properly to transmit the signal. 
+
+\subsection {Detecting the noise figure of a receiver}
+The experiment for this part was set as 2W Power
+supply--Filter--Filter--AP1039C--AC1068C--AC1068C--50Ω resistor--15V
+voltage supply. Unfortunately, only one of the amplifiers in the lab
+was working properly. Without the amplifiers the noise cannot be detected
+properly. Therefore we were unable to conduct the experiment.
+
+\section {Conclusion}
+The FM radio receiver designed and built in this lab incorporated
+various concepts and allowed us to become familiar with circuit
+elements. The measuring of the noise through a receiver is something of
+interest to complete in the future. In addition, exploring the design of
+other kinds of receivers is something we plan to do in order to further
+understand electronics and all of their components.
+
+\section {Acknowledgments}
+I would like to thank Eduardo Herrera who contributed to the results of
+this lab. I would also like to thank Baylee Bordwell and Karto Keating
+for providing guidance when needed. 
+
+\end{document}
