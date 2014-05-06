@@ -1,0 +1,262 @@
+\documentclass[12pt]{article}
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+
+\begin{document}
+
+\title{Mapping of the Galactic Warp}
+\author{Marta Pastore}
+\date{May 5, 2014}
+\maketitle
+
+\begin {abstract}
+For this lab we observed the Milky Way Galaxy using a radio dish
+telescope, Leuschener, to measure signal from the 21-cm line and from
+there create a map of the galaxy that includes the position in the
+galaxy, distance and height, and the temperature at various
+positions. The resulting image is shown in Figure 4. 
+\end{abstract}
+
+\section{Introduction}
+In this lab we are observing at the 21-cm line in order to detect
+ that our galaxy is indeed not flat and to also make a map of the
+galaxy with respect to position in the galaxy and brightness
+temperature. The dish used for our observations was the Leuschner
+disk. An observation script was written to sample data at various
+locations along the galaxy. The data was then callibrated in order to
+create a rotation curve for the galaxy as well as an overall map of the galaxy.
+
+\section{Methods}
+
+\subsection{Spatially Sample}
+
+Our project of observing the galactic warp examines the angular
+dependence of the 21-cm line profile. In order to make a map we need
+closely-spaced observations. We used the criterion of two samples per
+Half-Power Beam Width (HPBW). The HPBW is approximately 4 degrees and so
+we used spacing of 2 degrees for our observations.
+
+We took data at various points of Galactic longitudes ($\ell$) along the
+Galactic planet which has Galactic latitude of b = 0. In order to
+capture the largest section of the Galactic plane we used -$10\,^{\circ}{\rm}$ $<$
+$\ell$ $<$ $250\,^{\circ}{\rm}$  for the values of Galactic longitude.
+
+\subsection{Pointing and Tracking}
+The way the pointing was set up was to take vertical strips along
+Galactic longitude $\ell$ while keeping Galactic latitude b
+constant. This would allow us to compare the intensity of the HI along
+the galaxy in order to determine whether HI is more dense in certain
+regions. This would emply that the galazy is not flat. 
+
+Our tracking involved various parts. First we converted out Galactic
+coordinates to azimuth and altitude in order to point the dish.Then we
+went on to setting up the dish with appropriate points. We are looking
+at data at two upper and lower RF and LO frequencies because this will give us two plots
+with a HI peak shifted along the x axis. Manipulating these two plots
+will allow us to remove the bias in our data. In addition, we also from
+our data we also get a plot of the lower LO with our noise on. The noise
+component becomes important when calibrating the data. The RF
+frequencies were set to 1422MHz and 1418MHz. The LO frequency were set
+to 1272MHz and 1268MHz. 
+
+Unfortunately, due to some pointing errors we wer only able to obtain one
+strip of the galaxy along b. We obtained 44 total pointing at $\ell$=75 and -$20\,^{\circ}{\rm}$ $<$
+b $<$ $-20\,^{\circ}{\rm}$. At these values of b, we are ensured to
+obtained enough information create a decent image of the galaxy. 
+
+\subsection{Data Calibration}
+We introduce noise to our data because it raises our power versus
+frequency plot by adding more power to all the frequencies. Since we
+know the amplitude of the noise, we therefore know the power of our
+signal.The noise adds 100k to the system temperature. The power for data without
+the noise for the upper and lower LO frequencies contains a gain,
+\begin {equation}
+P_{up,off} =  G(T_{HI,off}+T_{sys}) 
+\end{equation}
+and 
+\begin{equation}
+P_{low,off} = G(T_{HI,off}+T_{sys}),
+\end{equation}
+where T$_{HI}$ is the temperature of our signal
+and T$_{sys}$ is the system temperature. Similarly the power for the two
+LO frequencies with the noise on is 
+\begin{equation}
+P_{up,on} =  G(T_{HI,on}+T_{sys}+T_{noise})
+\end{equation}
+and 
+\begin{equation}
+P_{low,on} =  G(T_{HI,on}+T_{sys}+T_{noise})
+\end{equation}
+
+What we want to figure out is T$_{HI}$. In order to do this we
+start by summing all of the values of power with the noise on for the upper
+LO frequency and dividing it by the sum of the values that result from subtracting the
+noise off and noise on power of the upper LO frequency. We can then
+multiply this result by T$_{noise}$. This gives is the following
+equation for T$_{sys,on}$,
+\begin{equation}
+T_{sys,on} = \frac{\sum\nolimits P_{up,on} T_{noise}}{\sum\nolimits P_{up,on} -
+P_{up,off}}
+\end{equation}
+Similarly, the T$_{sys,on}$ is,
+\begin{equation}
+T_{sys,off} = \frac{\sum\nolimits P_{low,on} T_{noise}}{\sum\nolimits P_{low,on} -
+P_{low,off}}
+\end{equation}
+Because the gain is not the same at all frequencies, we need
+to calculate the shape of the gain. We can express the gain of our two frequencies as follows,
+\begin{equation}
+G = \frac{\sum\nolimits P_{up,on}}{\sum\nolimits P_{low,on}}
+\end{equation}
+We then fit the data with a polynomial of order 5 and we can finally
+exact the average T$_{HI}$ temperature using the following
+equation,
+\begin{equation}
+T_{HI} = \frac{T_{HI,on}+T_{HI,off}}{2}
+\end{equation}
+Here T$_{HI}$ is what we are plotting with respect to temperature
+in Figure 1. 
+This calibration allows us to make a plot of temperature and frequency
+which is shown in Figure 1. 
+
+\begin {figure}[h!]
+\centering
+\includegraphics[width = 120mm, scale = 1]
+{good_tempvfreq.png}
+\caption{\label{rvd} A plot of temperature versus frequency for the
+  calibrated observation data of the galaxy at galactic latitude
+  -$20\,^{\circ}{\rm}$ $<$ b $<$ $20\,^{\circ}{\rm}$ and galactic
+  longitude $\ell$=75 .}
+\end {figure}
+\section{Results and Discussion}
+After applying the calibrations to our data files we obtained
+a temperature versus frequency plot which is shown in Figure 1. Here we
+see a range of frequencies that shifted to the right of the 1420MHz
+frequency; therefore our signal is redshifted and HI cloud is moving
+away from us.  
+
+\subsection{Velocities}
+Next we calculated the doppler velocity for our frequencies by using the
+equation 
+\begin{equation}
+V_{dopp} = \frac{V_c(f_{rest}-f_{obs})}{f_{obs}}
+\end{equation}
+The spectrum plotted against the doppler velocity is shown in Figure 2. This plot again shows
+a shifted velocity from the expected 200km/s. 
+
+Because the rotation of the Earth around the Sun also affects the
+velocity of the cloud we have to correct for this by using the values at
+the Local Standard of Reference, V$_{LSR}$. The way we found this
+velocity was by using the ugdoppler module which takes in right ascension,
+declination and julian day, and return the V$_{LSR}$ along with some
+other information that is not relevant to our purposes. Now we can
+express our corrected velocity, V$_{co}$ as follows
+\begin {equation}
+V_{co} = V_{dopp} - V_{LSR}
+\end{equation}
+The corrected velocity spectrum is shown in Figure 3. It can be seen
+that there was no much change between the corrected and not corrected
+velocity spectrum. This means that the V$_{LSR}$ does not have a huge
+impact on the final velocity.
+
+\begin {figure}[h!]
+\centering
+\includegraphics[width = 120mm, scale = 1]
+{good_tempvdopp.png}
+\caption{\label{rvd} A plot of temperature versus the doppler velocities
+ for the calibrated observation data of the galaxy at galactic longitudes
+  -$10\,^{\circ}{\rm}$ $<$ b $<$ $20\,^{\circ}{\rm}$ and galactic
+  latitude $\ell$=75.}
+\end {figure}
+
+\begin {figure}[h!]
+\centering
+\includegraphics[width = 120mm, scale = 1]
+{goodcorrectedvel.png}
+\caption{\label{rvd} A plot of temperature versus the corrected velocity
+  V$_{co}$ = V$_{dopp}$ - V$_{LSR}$ for the calibrated observation data
+  of the galaxy at galactic longitudes  -$10\,^{\circ}{\rm}$ $<$ b $<$
+  $20\,^{\circ}{\rm}$ and galactic latitude $\ell$=75.}
+\end {figure}
+
+\subsection{Distance, Height and Image}
+We then derived an equation for the position D in the galaxy. In order
+to do this, we express out corrected velocity in term of angles follows,
+
+\begin{equation}
+V_{co} = V_{o}\sin(\alpha-\ell) - (V_{o}sin(\ell))
+\end{equation}
+where V$_{o}$ is the constant velocity of the galaxy 200km/s and
+$\alpha$ is the angle from the galactic center to a point in the
+galaxy. The angle $\alpha$ can be further expressed as follows,
+\begin{equation}
+\alpha = \arcsin(\frac{V_{co}}{V_{o}} + \sin(\ell)) + \ell
+\end{equation}
+By using geometry we were able to find an expression of the distance, D,
+to a particular point in the galaxy,
+\begin{equation}
+D = D_{sun}\sin(90-\ell) + D_{sun}\sin(\ell)\tan(90+\alpha+\ell)
+\end{equation}
+where D$_{sun}$ = 8kpc and it is the distance from the sun to the
+galactic center. Now we have to figure out the height at which we are
+pointing and we do this by using the following equation,
+\begin{equation}
+height = D\sin(b)
+\end{equation}
+where b is the galactic latitude. Now we can make a plot of the height
+versus distance for our pointings and this gives us an idea of what area
+in the galaxy we have data for. The results are shown in Figure 4.
+\begin {figure}[h!]
+\centering
+\includegraphics[width = 120mm, scale = 1]
+{heightdistp.png}
+\caption{\label{rvd} A plot of distance versus height of the Milky Way
+  galaxy in units of kpc. This image shows our pointings in the galaxy
+  for galactic longitudes -$10\,^{\circ}{\rm}$ $<$ b $<$
+  $20\,^{\circ}{\rm}$ and galactic latitude $\ell$=75.}
+\end {figure}
+
+With this information we can go ahead and create an image. The way this
+was done was by first getting rid of any distance values that are not
+relevant like nan values and any distances greater than 30. We also got
+rid of any unwanted temperatures to make sure our data was ready for
+further manipulation. Because we have multiple sets of data at one
+particular distance, we have to take this into account by calculating
+how many values are actually in one distance and this resulted in  the
+weights. The image generation involves a convolution that will take care
+of filling in any pixels for which there is no information. The
+convolution takes in two arguments, the array that holds the information
+for the distance and height and the kernel. The kernel that we chose was
+a 2-dimensional gaussian. The resulting image is shown in Figure 5. The
+areas where the temperature is high means that there is high opacity and
+so the HI concentration is not as high as for the low temperature areas. 
+
+
+\begin {figure}[h!]
+\centering
+\includegraphics[width = 120mm, scale = 1]
+{imagegal.png}
+\caption{\label{rvd} A plot of distance, height and temperature of the Milky Way
+  galaxy in units of kpc. This image comes from a convolution with a
+  gaussian kernel and data for our observations galactic longitudes  
+  -$10\,^{\circ}{\rm}$ $<$ b $<$ $20\,^{\circ}{\rm}$ and galactic
+  latitude $\ell$=75.}
+\end {figure}
+
+
+\section{Conclusion}
+The data collected at galactic longitudes  
+  -$10\,^{\circ}{\rm}$ $<$ b $<$ $20\,^{\circ}{\rm}$ and galactic
+  latitude $\ell$=75 gave us a reasonble image for detecting the
+  concentration of HI along that strip of the galaxy. In the future
+  collecting data at other values of galactic latitude with allow us to
+  construct a better image of the galaxy.
+
+\section{Acknowledgements}
+
+I would like to thank my group members Sahana Kumar, Patrick Kantorski
+and Daniel Krishnan for their in help in obtaining our observations. I
+would also like to thank Baylee Bordwell and Karto Keating for their
+help in generating our results.
+
+\end{document}
