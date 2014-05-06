@@ -1,0 +1,97 @@
+import numpy as np
+import pylab 
+import math
+import scipy.signal
+
+
+file = np.load('May_4_final_final.npz')
+
+b_file = file['b'] 
+b_list = b_file.tolist()
+d_file = file['Distance'] 
+d_list = d_file.tolist()
+temp_file = file['Temp'] 
+temp_list = temp_file.tolist()  
+d_l = []
+t_l = []
+h_l = []
+    
+b_arr = np.asarray(b_list)
+b_arr = b_arr*np.pi/180.
+for k in range(0, 35): 
+    d_l.append(d_list[k])
+    for i in range(0,2000):
+        d = d_l[i]
+        if math.isnan(d_f)==True:
+            d[l] = 0
+        elif abs(d_f) > 30:
+            d[l] = 0
+        else:
+            pass
+        print d
+
+
+for k in range(0,35):
+    t_l.append(temp_list[k])
+    for i in range(0, 2000):
+        t = t_l[i]
+        if math.isnan(t)==True:
+            t_l[i] = 0
+        elif t_l[i] < 0.0: 
+            t_l[i] = 0
+        else:
+            pass 
+
+for i in range (len(b)):
+    h.append(d[i]*np.tan(b[i]*np.pi/180)
+             for i in range(0, 2000):
+                 h = h_l[i]
+             if math.isnan(h)==True:
+                 h_l[i] = 0
+             elif h_l[i] < 0.0: 
+             h_l[i] = 0
+             else:
+                 pass 
+
+img = np.zeros((201,251))
+wt = np.zeros((201,251))
+ker = np.zeros((201, 251))
+data = temp_list  
+
+sigma_x = np.std(d_l)
+sigma_y = np.std(h_)
+
+for i in xrange(len(d_l)):
+    x_pos = np.rint(d_l[i]/0.1)
+    y_pos = np.rint(h_l[i]/0.1)+100  
+    data_val = data[i]
+    
+    x_pos_1 = 0
+    y_pos_1 = 0 
+
+    if abs(x_pos) > 250.: 
+        x_pos_1 = 0.0
+    else:
+        x_pos_1 = x_pos
+        
+    if abs(y_pos) > 200.:
+        y_pos_1 = 0.0
+    else:
+        y_pos_1 = y_pos
+
+    img[y_pos_1][x_pos_1] += data_val 
+    wt[y_pos_1][x_pos_1] += 1        
+
+    x = d_list[i]
+    y = h_list[i]
+    ker[y_pos_1][x_pos_1] += np.exp((-(x**2/(2*sigma_x**2) + y**2/(2*sigma_y**2))))
+
+im = scipy.signal.fftconvolve(img,ker)
+weight = scipy.signal.fftconvolve(wt,ker)
+data_final = im/weight
+
+pylab.imshow(data)
+pylab.xlim(0,40)
+pylab.ylim(-40,40)
+pylab.colorbar()
+pylab.show()
